@@ -25,9 +25,7 @@ public class TrainingSet
     {
         List<Player> players = new ArrayList<>();
 
-        int otherPlayers = (int) Math.round(Math.random() * 5);
-
-        for (int i = 0; i < otherPlayers; i++)
+        for (int i = 0; i < 4; i++)
         {
             players.add(new BasicStrategyPlayer());
         }
@@ -39,11 +37,9 @@ public class TrainingSet
         // Place the trainer somewhere in the list.
         Collections.shuffle(players);
 
-        Blackjack game = new Blackjack(players, true);
+        Blackjack game = new Blackjack(players, false);
         game.playHand();
 
-        double winPercent = game.getWinRatio() * 100;
-        System.out.println("Players won " + winPercent + "%");
     }
 
     public List<TrainingState> getSets(){return training.getStates();}

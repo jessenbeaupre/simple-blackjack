@@ -6,6 +6,7 @@ import org.neuroph.util.TransferFunctionType;
 import simpleblackjack.ai.AiPlayer;
 import simpleblackjack.ai.BlackjackNeuralNetwork;
 import simpleblackjack.ai.TrainingSet;
+import simpleblackjack.game.BasicStrategyPlayer;
 import simpleblackjack.game.Blackjack;
 import simpleblackjack.game.Player;
 
@@ -16,25 +17,52 @@ public class SimpleBlackjack {
 
     public static void main(String args[])
     {
-        NeuralNetwork bJNN = new MultiLayerPerceptron(TransferFunctionType.TANH, 3, 4, 1);
+        runBasicGames();
+        runAiGames();
+    }
+
+    private static void runBasicGames()
+    {
+        List<Player> playerList = new ArrayList<>();
+
+        playerList.add(new BasicStrategyPlayer());
+        playerList.add(new BasicStrategyPlayer());
+        playerList.add(new BasicStrategyPlayer());
+        playerList.add(new BasicStrategyPlayer());
+        playerList.add(new BasicStrategyPlayer());
+
+        Blackjack game = new Blackjack(playerList, false);
+
+        for (int i = 0; i < 1000; i++)
+        {
+            game.playHand();
+        }
+
+        double winPercent = game.getWinRatio() * 100;
+        System.out.println("Basic strategy players won " + winPercent + "%");
+    }
+
+    private static void runAiGames()
+    {
+        NeuralNetwork bJNN = new MultiLayerPerceptron(TransferFunctionType.TANH, 3, 3, 1);
         BlackjackNeuralNetwork.trainTest(bJNN);
-
-        AiPlayer ai1 = new AiPlayer(bJNN);
-        AiPlayer ai2 = new AiPlayer(bJNN);
-
 
         List<Player> playerList = new ArrayList<>();
 
-        playerList.add(ai1);
-        playerList.add(ai2);
+        playerList.add(new AiPlayer(bJNN));
+        playerList.add(new AiPlayer(bJNN));
+        playerList.add(new AiPlayer(bJNN));
+        playerList.add(new AiPlayer(bJNN));
+        playerList.add(new AiPlayer(bJNN));
 
-        Blackjack aiGame = new Blackjack(playerList);
+        Blackjack aiGame = new Blackjack(playerList, false);
 
-        System.out.println("STARING AI:");
-
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 1000; i++)
         {
             aiGame.playHand();
         }
+
+        double winPercent = aiGame.getWinRatio() * 100;
+        System.out.println("AI players won " + winPercent + "%");
     }
 }

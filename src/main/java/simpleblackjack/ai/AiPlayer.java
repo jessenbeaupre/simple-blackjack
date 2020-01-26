@@ -19,8 +19,10 @@ public class AiPlayer extends Player
         boolean stand = false;
         while (!stand)
         {
-            ai.setInput(Hand.computeScore(getHand().getCards()) / BlackjackNeuralNetwork.getNormalizeValue(),tableView.visibleCardCount() / BlackjackNeuralNetwork.getNormalizeValue(),
-                    tableView.visibleCardSum() / BlackjackNeuralNetwork.getNormalizeValue());
+            ai.setInput(
+                    (double)Hand.computeScore(getHand().getCards()) / 31.0,
+                    (double)tableView.visibleCardCount() / 52.0,
+                    (double)tableView.visibleCardSum() / 156.0 );
 
             ai.calculate();
 
