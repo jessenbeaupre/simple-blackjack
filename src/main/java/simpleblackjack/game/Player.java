@@ -3,6 +3,7 @@ package simpleblackjack.game;
 public abstract class Player
 {
     int score = 0;
+    int handValue = 0;
     Hand hand;
 
     public Player()
@@ -20,7 +21,11 @@ public abstract class Player
         return hand;
     }
 
-    public void ScoreHand(int score) {
+    public int getHandValue() {return handValue;}
+
+    public void setHandValue(int handValue) {this.handValue = handValue;}
+
+    public void scoreHand(int score) {
         score += score;
     }
 
