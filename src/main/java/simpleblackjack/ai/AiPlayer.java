@@ -26,7 +26,7 @@ public class AiPlayer extends Player
 
             ai.calculate();
 
-            if (ai.getOutput()[0] > 0.5)
+            if (ai.getOutput()[0] > 0.5 && Hand.computeScore(getHand().getCards()) < 21)
             {
                 Card hitCard = deck.deal();
                 getHand().addCard(hitCard);

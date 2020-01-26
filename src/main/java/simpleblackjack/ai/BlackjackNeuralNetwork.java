@@ -19,7 +19,7 @@ public class BlackjackNeuralNetwork
         int outputSize = 1;
         DataSet blackJackDataSet = new DataSet(inputSize, outputSize);
 
-        TrainingSet trainingSet = new TrainingSet(2000000);
+        TrainingSet trainingSet = new TrainingSet(10000);
         List<TrainingState> setStates = trainingSet.getSets();
 
 
@@ -38,7 +38,7 @@ public class BlackjackNeuralNetwork
         //creates back propagation with the data set we created and iterates 2000 times on the neural network
         //BackPropagation backPropagation = new BackPropagation();
         BackPropagation learning = new BackPropagation();
-        learning.setMaxIterations(50000);
+        learning.setMaxIterations(10000);
         learning.setLearningRate(0.1);
         NeuralNetwork.learn(blackJackDataSet, learning);
         System.out.println("Learning error: " + learning.getTotalNetworkError());

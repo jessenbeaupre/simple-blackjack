@@ -44,7 +44,7 @@ public class SimpleBlackjack {
 
     private static void runAiGames()
     {
-        NeuralNetwork bJNN = new MultiLayerPerceptron(TransferFunctionType.TANH, 3, 3, 1);
+        NeuralNetwork bJNN = new MultiLayerPerceptron(TransferFunctionType.TANH, 3, 4, 1);
         BlackjackNeuralNetwork.trainTest(bJNN);
 
         List<Player> playerList = new ArrayList<>();
@@ -55,7 +55,7 @@ public class SimpleBlackjack {
         playerList.add(new AiPlayer(bJNN));
         playerList.add(new AiPlayer(bJNN));
 
-        Blackjack aiGame = new Blackjack(playerList, false);
+        Blackjack aiGame = new Blackjack(playerList, true);
 
         for (int i = 0; i < 1000; i++)
         {

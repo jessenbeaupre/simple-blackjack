@@ -15,21 +15,30 @@ public class TrainingPlayer extends Player
     @Override
     public void playTurn(TableView tableView, Deck deck)
     {
+        int originalScore = Hand.computeScore(getHand().getCards());
+
+        // Hit me!
+        getHand().addCard(deck.deal());
+
         while (Hand.computeScore(getHand().getCards()) < 21)
         {
             states.add(new TrainingState(
                     tableView.visibleCardSum(),
                     tableView.visibleCardCount(),
-                    Hand.computeScore(getHand().getCards()),
+                    originalScore,
                     1.0));
 
+
+            originalScore = Hand.computeScore(getHand().getCards());
+
+            // Hit me!
             getHand().addCard(deck.deal());
         }
 
         states.add(new TrainingState(
                 tableView.visibleCardSum(),
                 tableView.visibleCardCount(),
-                Hand.computeScore(getHand().getCards()),
+                originalScore,
                 0.0));
     }
 
