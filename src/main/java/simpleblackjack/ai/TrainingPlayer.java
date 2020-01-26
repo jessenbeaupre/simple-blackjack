@@ -15,9 +15,6 @@ public class TrainingPlayer extends Player
     @Override
     public void playTurn(TableView tableView, Deck deck)
     {
-        // Hit me!
-        getHand().addCard(deck.deal());
-
         while (Hand.computeScore(getHand().getCards()) < 21)
         {
             states.add(new TrainingState(
