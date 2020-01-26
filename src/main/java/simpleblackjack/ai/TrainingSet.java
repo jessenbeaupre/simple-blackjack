@@ -10,7 +10,8 @@ import java.util.List;
 
 public class TrainingSet
 {
-    List<TrainingPlayer> trainingPlayers = new ArrayList<>();
+    //List<TrainingPlayer> trainingPlayers = new ArrayList<>();
+    TrainingPlayer training = new TrainingPlayer();
 
     public TrainingSet(int numGames)
     {
@@ -31,8 +32,7 @@ public class TrainingSet
             players.add(new BasicStrategyPlayer());
         }
 
-        TrainingPlayer training = new TrainingPlayer();
-        trainingPlayers.add(training);
+        //trainingPlayers.add(training);
 
         players.add(training);
 
@@ -42,4 +42,6 @@ public class TrainingSet
         Blackjack game = new Blackjack(players);
         game.playHand();
     }
+
+    public List<TrainingState> getSets(){return training.getStates();}
 }

@@ -32,4 +32,9 @@ public class TrainingPlayer extends Player
                 Hand.computeScore(getHand().getCards()),
                 0.0));
     }
+
+    public List<TrainingState> getStates()
+    {
+        return states;
+    }
 }

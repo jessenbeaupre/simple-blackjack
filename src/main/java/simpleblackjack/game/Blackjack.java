@@ -85,18 +85,30 @@ public class Blackjack implements TableView
     @Override
     public int visibleDealerScore()
     {
-        return 0;
+        return Hand.computeScore(dealer.getHand().getCards());
     }
 
     @Override
     public int visibleCardSum()
     {
-        return 0;
+        int cardSum = 0;
+
+        for (Player player: players)
+        {
+            cardSum += Hand.computeScore(player.getHand().getCards());
+        }
+        return cardSum;
     }
 
     @Override
     public int visibleCardCount()
     {
-        return 0;
+        int cardsTotal = 0;
+
+        for (Player player: players)
+        {
+            cardsTotal += player.getHand().size();
+        }
+        return cardsTotal;
     }
 }
