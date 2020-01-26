@@ -7,15 +7,21 @@ public class Blackjack implements TableView
     private List<Player> players;
 
     Player dealer;
+
     private Deck deck = new Deck();
 
-    public Blackjack(List<Player> players)
+    boolean verbose = false;
+
+    double handsPlayed = 0.0;
+    double handsWon = 0.0;
+
+    public Blackjack(List<Player> players, boolean verbose)
     {
         this.players = players;
+        this.verbose = verbose;
 
         dealer = new BasicStrategyPlayer();
         players.add(dealer);
-
     }
 
     public void playHand()
@@ -59,27 +65,32 @@ public class Blackjack implements TableView
         {
             if (player != dealer)
             {
+                handsPlayed += 1.0;
                 int playerScore = Hand.computeScore(player.getHand().getCards());
-                if ( (playerScore > dealerScore || dealerScore > 21 ) && playerScore <= 21 )
+                String gameState = "loses";
+                if ((playerScore > dealerScore || dealerScore > 21) && playerScore <= 21)
                 {
-                    System.out.println("Player wins with " + playerScore + " over dealer's " + dealerScore);
                     player.scoreHand(1);
                     deck.returnHand(player.hand);
-                }
-                else
+                    gameState = "wins";
+                    handsWon += 1.0;
+                } else
                 {
-                    System.out.println("Player loses with " + playerScore + " over dealer's " + dealerScore);
-
                     player.scoreHand(0);
                     deck.returnHand(player.hand);
                 }
-            }
-            else
-            {
-                deck.returnHand(dealer.hand);
+
+                if (verbose)
+                {
+                    System.out.println("Player " + gameState + " \t " + playerScore + "-" + dealerScore);
+                }
             }
         }
+    }
 
+    public double getWinRatio()
+    {
+        return handsWon / handsPlayed;
     }
 
     @Override
