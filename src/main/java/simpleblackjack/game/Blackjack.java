@@ -5,18 +5,15 @@ import java.util.List;
 
 public class Blackjack implements TableView
 {
-    private List<Player> players = new ArrayList<>();
+    private List<Player> players;
     private int currentPlayer = 0;
 
     Player dealer;
     private Deck deck = new Deck();
 
-    public Blackjack(int numPlayers)
+    public Blackjack(List<Player> players)
     {
-        for (int i = 0; i < numPlayers; i++)
-        {
-            players.add(new BasicStrategyPlayer());
-        }
+        this.players = players;
 
         dealer = new BasicStrategyPlayer();
         players.add(dealer);
