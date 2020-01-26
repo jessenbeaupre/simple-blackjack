@@ -16,6 +16,7 @@ public class TrainingSet
     {
         for (int i = 0; i < numGames; i++)
         {
+            simulateGame();
         }
     }
 
@@ -39,5 +40,6 @@ public class TrainingSet
         Collections.shuffle(players);
 
         Blackjack game = new Blackjack(players);
+        game.playHand();
     }
 }

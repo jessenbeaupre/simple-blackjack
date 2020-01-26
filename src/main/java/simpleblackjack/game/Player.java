@@ -20,7 +20,7 @@ public abstract class Player
         return hand;
     }
 
-    public void ScoreHand(int score) {
+    public void scoreHand(int score) {
         score += score;
     }
 
