@@ -14,7 +14,18 @@ public class Deck
         {
             for (int i = 1; i <= 13; i++)
             {
-                cards.add(new Card(i, suit));
+                int value;
+                
+                if (i <= 10)
+                {
+                    value = i;
+                }
+                else
+                {
+                    value = 10;
+                }
+
+                cards.add(new Card(value, suit));
             }
         }
     }
