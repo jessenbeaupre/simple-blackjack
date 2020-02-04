@@ -6,7 +6,7 @@ public class Blackjack implements TableView
 {
     private List<Player> players;
 
-    Player dealer;
+    Dealer dealer;
 
     private Deck deck = new Deck();
 
@@ -14,14 +14,15 @@ public class Blackjack implements TableView
 
     double handsPlayed = 0.0;
     double handsWon = 0.0;
+    double handsTied = 0.0;
 
     public Blackjack(List<Player> players, boolean verbose)
     {
+        dealer = new Dealer();
+        players.add(0, dealer);
+
         this.players = players;
         this.verbose = verbose;
-
-        dealer = new BasicStrategyPlayer();
-        players.add(dealer);
     }
 
     public void playHand()
@@ -74,7 +75,16 @@ public class Blackjack implements TableView
                     deck.returnHand(player.hand);
                     gameState = "wins";
                     handsWon += 1.0;
-                } else
+                }
+                else if (playerScore <= 21 && playerScore == dealerScore)
+                {
+                    //might need to change to a .5 later
+                    player.scoreHand(1);
+                    deck.returnHand(player.hand);
+                    gameState = "ties";
+                    handsTied += 1.0;
+                }
+                else
                 {
                     player.scoreHand(0);
                     deck.returnHand(player.hand);
@@ -91,6 +101,11 @@ public class Blackjack implements TableView
     public double getWinRatio()
     {
         return handsWon / handsPlayed;
+    }
+
+    public double getTieRatio()
+    {
+        return handsTied / handsPlayed;
     }
 
     @Override
@@ -121,5 +136,9 @@ public class Blackjack implements TableView
             cardsTotal += player.getHand().size();
         }
         return cardsTotal;
+    }
+
+    public Dealer getDealer(){
+        return dealer;
     }
 }

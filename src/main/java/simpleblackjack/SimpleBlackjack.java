@@ -39,12 +39,14 @@ public class SimpleBlackjack {
         }
 
         double winPercent = game.getWinRatio() * 100;
-        System.out.println("Basic strategy players won " + winPercent + "%");
+        System.out.println("Standard players won " + winPercent + "%");
+        double tiePercent = game.getTieRatio() * 100;
+        System.out.println("Standard players tied " + tiePercent + "%");
     }
 
     private static void runAiGames()
     {
-        NeuralNetwork bJNN = new MultiLayerPerceptron(TransferFunctionType.TANH, 3, 4, 1);
+        NeuralNetwork bJNN = new MultiLayerPerceptron(TransferFunctionType.TANH, 4, 4, 1);
         BlackjackNeuralNetwork.trainTest(bJNN);
 
         List<Player> playerList = new ArrayList<>();
@@ -64,5 +66,7 @@ public class SimpleBlackjack {
 
         double winPercent = aiGame.getWinRatio() * 100;
         System.out.println("AI players won " + winPercent + "%");
+        double tiePercent = aiGame.getTieRatio() * 100;
+        System.out.println("AI players tied " + tiePercent + "%");
     }
 }

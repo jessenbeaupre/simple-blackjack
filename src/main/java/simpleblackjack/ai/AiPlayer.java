@@ -22,7 +22,8 @@ public class AiPlayer extends Player
             ai.setInput(
                     (double)Hand.computeScore(getHand().getCards()) / 31.0,
                     (double)tableView.visibleCardCount() / 52.0,
-                    (double)tableView.visibleCardSum() / 156.0 );
+                    (double)tableView.visibleCardSum() / 156.0 ,
+                    (double)tableView.getDealer().getDealerShowing().getValue());
 
             ai.calculate();
 
